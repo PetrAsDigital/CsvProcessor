@@ -1,0 +1,15 @@
+*.suo
+*.exe
+*.exp
+*.ilk
+*.lib
+*.ncb
+*.log
+*.pdb
+*.vcproj.*.user
+*.csproj.user
+[Dd]ebug
+[Rr]elease
+[Bb]in
+packages/*
+.vs/config/applicationhost.config
