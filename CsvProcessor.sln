@@ -5,6 +5,20 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvProcessor", "CsvProcessor\CsvProcessor.csproj", "{2C429930-E0B7-4393-A9D5-F897ECCBAA10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{C3760A25-E2D6-43B0-9781-6537016AEF08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{523357F8-199B-4C98-80C6-21C494C19A4A}"
+	ProjectSection(SolutionItems) = preProject
+		files\LP_210095893_20150901T011608049.csv = files\LP_210095893_20150901T011608049.csv
+		files\LP_214612534_20150907T084333712.csv = files\LP_214612534_20150907T084333712.csv
+		files\LP_214612653_20150907T220027915.csv = files\LP_214612653_20150907T220027915.csv
+		files\TOU_212621145_20150911T022358.csv = files\TOU_212621145_20150911T022358.csv
+		files\TOU_212621147_20150911T022240.csv = files\TOU_212621147_20150911T022240.csv
+		files\TOU_214667141_20150901T040057.csv = files\TOU_214667141_20150901T040057.csv
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processors", "Processors\Processors.csproj", "{4598F686-EE4D-437B-9298-97BE10727898}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +29,14 @@ Global
 		{2C429930-E0B7-4393-A9D5-F897ECCBAA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C429930-E0B7-4393-A9D5-F897ECCBAA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C429930-E0B7-4393-A9D5-F897ECCBAA10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3760A25-E2D6-43B0-9781-6537016AEF08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3760A25-E2D6-43B0-9781-6537016AEF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3760A25-E2D6-43B0-9781-6537016AEF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3760A25-E2D6-43B0-9781-6537016AEF08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4598F686-EE4D-437B-9298-97BE10727898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4598F686-EE4D-437B-9298-97BE10727898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4598F686-EE4D-437B-9298-97BE10727898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4598F686-EE4D-437B-9298-97BE10727898}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
