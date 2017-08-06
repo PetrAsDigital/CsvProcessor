@@ -44,8 +44,6 @@ namespace Processors.Processors
             energy_Median = energy_Sum / dataRowsNum;
             energy_Top = energy_Median * 1.2;
             energy_Bottom = energy_Median * 0.8;
-
-            Processor_Result.Description = "Pls. see abnormal energy values as follows:";
         }
         public void ProcessRowAgain(CsvReader csvReader, int row)
         {
@@ -56,6 +54,11 @@ namespace Processors.Processors
                 var formattedResult = GetFormattedRecord(FileName, csvReader[dateTime_Index], energy_str, energy_Median);
                 Processor_Result.Result.Add(formattedResult);
             }
+        }
+
+        public void ProcessSummaryAgain(int row)
+        {
+            Processor_Result.Description = Processor_Result.Result.Count == 0 ? "Sorry, no abnormal rows to show..." : "Pls. see abnormal energy values as follows:";
         }
 
         private static string GetFormattedRecord(string fileName, string dateTime, string energy_str, double median)
@@ -69,22 +72,19 @@ namespace Processors.Processors
             return result.ToString();
         }
 
-        public void ProcessSummaryAgain(int row)
-        {
-            if (Processor_Result.Result.Count == 0)
-                Processor_Result.Description = "Sorry, no abnormal rows to show...";
-        }
-
 
         /// <summary>
-        /// This method is used for unit testing only
+        /// This method is used for unit testing only.
+        /// This method writes all necessary data into a collection and then the data is processed immediately.
+        /// We don't have to process the csv files twice here but we need a lot of memory in case of big csv files.
+        /// However, it's just for unit testing so we don't have to worry about the memory consumption here too much.
         /// </summary>
         /// <param name="fileNameWithPath"></param>
         /// <returns></returns>
         public static List<string> Get_Data_Directly(string fileNameWithPath)
         {
-            var result = new List<string>();
             List<Ent_Tou> data = new List<Ent_Tou>();
+            var fileName = Path.GetFileName(fileNameWithPath);
 
             using (CsvReader csvReader = new CsvReader(new StreamReader(fileNameWithPath), true))
             {
@@ -106,13 +106,7 @@ namespace Processors.Processors
             var bottom_value = median_value * 0.8;
 
             var filteredData = data.Where(a => a.Energy > top_value || a.Energy < bottom_value).ToList();
-            var fileName = Path.GetFileName(fileNameWithPath);
-
-            foreach (var item in filteredData)
-            {
-                var formattedResult = GetFormattedRecord(fileName, item.DateTime, item.Energy_String, median_value);
-                result.Add(formattedResult);
-            }
+            var result = filteredData.Select(a => GetFormattedRecord(fileName, a.DateTime, a.Energy_String, median_value)).ToList();
 
             return result;
         }

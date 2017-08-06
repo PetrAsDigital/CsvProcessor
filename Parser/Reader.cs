@@ -7,11 +7,17 @@ namespace Parser
 {
     public class Reader
     {
+        /// <summary>
+        /// If we want to avoid using too much memory while reading big files (1GB and more) by storing the necessary values
+        /// into a collection then we have to process the csv file in two steps.
+        /// First we calculate all we need in the first cycle, then we pick up the right records in the second cycle.
+        /// </summary>
+        /// <param name="fileNameWithPath"></param>
+        /// <returns></returns>
         public ProcessorResult ProcessFile(string fileNameWithPath)
         {
             // find the right processor by the file name
-            Common common = new Common();
-            IProcessor processor = common.GetProcessor(fileNameWithPath); 
+            IProcessor processor = Common.GetProcessor(fileNameWithPath); 
                        
 
             // read the file for the first time and calculate what's needed
@@ -29,7 +35,7 @@ namespace Parser
                 processor.ProcessSummary(row);
             }
 
-            // process the file again if needed...
+            // process the file again and pick up the right records (some processors may not need this)...
             if (processor.CanProcessAgain)
             {
                 using (CsvReader csv = new CsvReader(new StreamReader(fileNameWithPath), true))
@@ -48,7 +54,7 @@ namespace Parser
 
             processor.PrintResult();
 
-            return processor.GetResult();
+            return processor.GetResult();   // we need the result for unit testing in UnitTestProcessor project
         }
     }
 }

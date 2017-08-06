@@ -9,12 +9,12 @@ namespace Processors.Processors
         private string _fileName;
         private string[] _headers;
         private int _fieldCount;
-        private ProcessorResult processor_result = new ProcessorResult();
+        private ProcessorResult _processor_result = new ProcessorResult();
 
         public string FileName { get { return _fileName; } }
         public int FieldCount { get { return _fieldCount; } }
         public string[] Headers { get { return _headers; } }
-        public ProcessorResult Processor_Result { get { return processor_result; } }
+        public ProcessorResult Processor_Result { get { return _processor_result; } }
 
 
         public Processor_base(string fileName)

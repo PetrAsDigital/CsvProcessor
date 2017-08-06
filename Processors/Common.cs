@@ -14,7 +14,7 @@ namespace Processors
 
         public const string FILESDIR = @"..\..\..\files";
 
-        public IProcessor GetProcessor(string fileNameWithPath)
+        public static IProcessor GetProcessor(string fileNameWithPath)
         {
             if (string.IsNullOrEmpty(fileNameWithPath))
                 throw new ProcessorException("FileName is empty!");
@@ -35,7 +35,7 @@ namespace Processors
                 processor = new Proc_Tou(fileName);
 
             if (processor == null)
-                throw new ProcessorException("Processor hasn't been assigned due to unknown filename!");
+                throw new ProcessorException($"Processor hasn't been assigned due to unknown filename '{fileName}'!");
 
             return processor;
         }

@@ -16,13 +16,13 @@ namespace UnitTestProcessor
         [TestMethod]
         public void TestMethod_LP_Test()
         {
-            CheckLpFile("LP_test.csv");
+            Check_Lp_File("LP_test.csv");
         }
 
         [TestMethod]
         public void TestMethod_Tou_Test()
         {
-            CheckTouFile("TOU_test.csv");
+            Check_Tou_File("TOU_test.csv");
         }
 
         /// <summary>
@@ -37,15 +37,15 @@ namespace UnitTestProcessor
                 var fileName = Path.GetFileName(item);
 
                 if (fileName.StartsWith("LP"))
-                    CheckLpFile(fileName);
+                    Check_Lp_File(fileName);
                 else if (fileName.StartsWith("TOU"))
-                    CheckTouFile(fileName);
+                    Check_Tou_File(fileName);
                 else
                     throw new Exception($"Type of a file {fileName} not recognised");
             }
         }
 
-        private void CheckLpFile(string fileName)
+        private void Check_Lp_File(string fileName)
         {
             string fileNameWithPath = Path.Combine(path, fileName);
 
@@ -57,7 +57,7 @@ namespace UnitTestProcessor
             Assert.IsTrue(processorResult.Result.SequenceEqual(lp_Data));
         }
 
-        private void CheckTouFile(string fileName)
+        private void Check_Tou_File(string fileName)
         {
             string fileNameWithPath = Path.Combine(path, fileName);
 

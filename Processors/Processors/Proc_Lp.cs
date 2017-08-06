@@ -44,8 +44,6 @@ namespace Processors.Processors
             dataValue_Median = dataValue_Sum / dataRowsNum;
             dataValue_Top = dataValue_Median * 1.2;
             dataValue_Bottom = dataValue_Median * 0.8;
-
-            Processor_Result.Description = "Abnormal values are present in the following rows:";
         }
 
         public void ProcessRowAgain(CsvReader csvReader, int row)
@@ -59,6 +57,11 @@ namespace Processors.Processors
             }
         }
 
+        public void ProcessSummaryAgain(int row)
+        {
+            Processor_Result.Description = Processor_Result.Result.Count == 0 ? "No abnormal values are present in the file" : "Abnormal values are present in the following rows:";
+        }
+
         private static string GetFormattedRecord(string fileName, string dateTime, string dataValue_str, double median)
         {
             StringBuilder result = new StringBuilder();
@@ -70,22 +73,19 @@ namespace Processors.Processors
             return result.ToString();
         }
 
-        public void ProcessSummaryAgain(int row)
-        {
-            if (Processor_Result.Result.Count == 0)
-                Processor_Result.Description = "No abnormal values are present in the file";
-        }
-
 
         /// <summary>
-        /// This method is used for unit testing only
+        /// This method is used for unit testing only.
+        /// This method writes all necessary data into a collection and then the data is processed immediately.
+        /// We don't have to process the csv files twice here but we need a lot of memory in case of big csv files.
+        /// However, it's just for unit testing so we don't have to worry about the memory consumption here too much.
         /// </summary>
         /// <param name="fileNameWithPath"></param>
         /// <returns></returns>
         public static List<string> Get_Data_Directly(string fileNameWithPath)
         {
-            var result = new List<string>();
             List<Ent_Lp> data = new List<Ent_Lp>();
+            var fileName = Path.GetFileName(fileNameWithPath);
 
             using (CsvReader csvReader = new CsvReader(new StreamReader(fileNameWithPath), true))
             {
@@ -107,13 +107,7 @@ namespace Processors.Processors
             var bottom_value = median_value * 0.8;
 
             var filteredData = data.Where(a => a.DataValue > top_value || a.DataValue < bottom_value).ToList();
-            var fileName = Path.GetFileName(fileNameWithPath);
-
-            foreach (var item in filteredData)
-            {
-                var formattedResult = GetFormattedRecord(fileName, item.DateTime, item.DataValue_String, median_value);
-                result.Add(formattedResult);
-            }
+            var result = filteredData.Select(a => GetFormattedRecord(fileName, a.DateTime, a.DataValue_String, median_value)).ToList();
 
             return result;
         }
