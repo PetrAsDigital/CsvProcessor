@@ -47,6 +47,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="Interfaces\IProcessor.cs" />
     <Compile Include="Exceptions\ProcessorException.cs" />
+    <Compile Include="ProcessorResult.cs" />
     <Compile Include="Processors\Processor_base.cs" />
     <Compile Include="Processors\Proc_Tou.cs" />
     <Compile Include="Processors\Proc_Lp.cs" />

@@ -44,7 +44,9 @@ namespace Parser
 
                     processor.ProcessSummaryAgain(row);
                 }
-            }            
+            }
+
+            processor.PrintResult();
         }
     }
 }

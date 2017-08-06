@@ -1,5 +1,7 @@
 ﻿using LumenWorks.Framework.IO.Csv;
 using Processors.Exceptions;
+using System;
+using System.Linq;
 
 namespace Processors.Processors
 {
@@ -8,11 +10,13 @@ namespace Processors.Processors
         private string _fileName;
         private string[] _headers;
         private int _fieldCount;
+        private ProcessorResult processor_result = new ProcessorResult();
 
-        
         public string FileName { get { return _fileName; } }
         public int FieldCount { get { return _fieldCount; } }
         public string[] Headers { get { return _headers; } }
+        public ProcessorResult Processor_Result { get { return processor_result; } }
+
 
         public Processor_base(string fileName)
         {
@@ -32,6 +36,37 @@ namespace Processors.Processors
         {
             if (rowNum < 1)
                 throw new ProcessorException("Selected file contains no rows!");
+        }
+
+        protected int GetFieldIndex(string fieldName)
+        {
+            if (_headers == null)
+                throw new ProcessorException($"Headers is null!");
+
+            var field = _headers.Select((s, i) => new { s, i }).Where(t => t.s == fieldName).FirstOrDefault();
+            if (field == null)
+                throw new ProcessorException($"Selected file does not have '{fieldName}' column!");
+
+            return field.i;
+        }
+
+        public virtual ProcessorResult GetResult()
+        {
+            return Processor_Result;
+        }
+
+        public virtual void PrintResult()
+        {
+            if (!string.IsNullOrEmpty(Processor_Result.Description))
+            {
+                Console.WriteLine();
+                Console.WriteLine(Processor_Result.Description);
+            }
+
+            foreach (var item in Processor_Result.Result)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

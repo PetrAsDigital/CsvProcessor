@@ -11,5 +11,7 @@ namespace Processors.Interfaces
         void ProcessSummary(int row);
         void ProcessRowAgain(CsvReader csvReader, int row);
         void ProcessSummaryAgain(int row);
+        ProcessorResult GetResult();
+        void PrintResult();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Parser;
-using Processors;
 using Processors.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ namespace CsvProcessor
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("Choose a file by a number or zero for exit...");
+                Console.WriteLine("Choose a file from above by a number or zero for exit...");
 
 
                 string sChosen = Console.ReadLine();
@@ -43,7 +42,7 @@ namespace CsvProcessor
                 else
                 {
                     Console.WriteLine();
-                    Console.WriteLine($"Processing file {allFilesDictionary[nChosen]}");
+                    Console.WriteLine($"Processing file {Path.GetFileName(allFilesDictionary[nChosen])}");
                     Console.WriteLine();
 
                     // main process...
