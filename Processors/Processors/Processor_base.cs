@@ -1,7 +1,6 @@
 ﻿using LumenWorks.Framework.IO.Csv;
 using Processors.Exceptions;
 using System;
-using System.Linq;
 
 namespace Processors.Processors
 {
