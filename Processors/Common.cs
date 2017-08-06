@@ -2,11 +2,18 @@
 using Processors.Interfaces;
 using Processors.Processors;
 using System.IO;
+using System.Linq;
 
 namespace Processors
 {
     public class Common
     {
+        public const string DATETIME = "Date/Time";
+        public const string DATAVALUE = "Data Value";
+        public const string ENERGY = "Energy";
+
+        public const string FILESDIR = @"..\..\..\files";
+
         public IProcessor GetProcessor(string fileNameWithPath)
         {
             if (string.IsNullOrEmpty(fileNameWithPath))
@@ -40,6 +47,18 @@ namespace Processors
                 throw new ProcessorException($"Error while trying to parse value {value} at line {line}");
 
             return result;
+        }
+
+        public static int GetFieldIndex(string[] headers, string fieldName)
+        {
+            if (headers == null)
+                throw new ProcessorException($"Headers is null!");
+
+            var field = headers.Select((s, i) => new { s, i }).Where(t => t.s == fieldName).FirstOrDefault();
+            if (field == null)
+                throw new ProcessorException($"Selected file does not have '{fieldName}' column!");
+
+            return field.i;
         }
     }
 }

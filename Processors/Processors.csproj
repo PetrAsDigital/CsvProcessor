@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
+    <Compile Include="Entities\Ent_Tou.cs" />
+    <Compile Include="Entities\Ent_Lp.cs" />
     <Compile Include="Interfaces\IProcessor.cs" />
     <Compile Include="Exceptions\ProcessorException.cs" />
     <Compile Include="ProcessorResult.cs" />

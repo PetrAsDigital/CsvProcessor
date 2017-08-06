@@ -1,4 +1,5 @@
 ﻿using Parser;
+using Processors;
 using Processors.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace CsvProcessor
     {
         static void Main(string[] args)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\files");
+            string path = Path.Combine(Directory.GetCurrentDirectory(), Common.FILESDIR);
 
             var allFiles = Directory.GetFiles(path, "*.csv");
             var allFilesDictionary = allFiles.Select((s, i) => new { s, i }).ToDictionary(x => x.i + 1, x => x.s);

@@ -38,18 +38,6 @@ namespace Processors.Processors
                 throw new ProcessorException("Selected file contains no rows!");
         }
 
-        protected int GetFieldIndex(string fieldName)
-        {
-            if (_headers == null)
-                throw new ProcessorException($"Headers is null!");
-
-            var field = _headers.Select((s, i) => new { s, i }).Where(t => t.s == fieldName).FirstOrDefault();
-            if (field == null)
-                throw new ProcessorException($"Selected file does not have '{fieldName}' column!");
-
-            return field.i;
-        }
-
         public virtual ProcessorResult GetResult()
         {
             return Processor_Result;

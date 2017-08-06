@@ -23,8 +23,8 @@ namespace Processors.Processors
         {
             base.Initialize(csvReader);
 
-            dataValue_Index = GetFieldIndex("Data Value");
-            dateTime_Index = GetFieldIndex("Date/Time");
+            dataValue_Index = Common.GetFieldIndex(Headers, Common.DATAVALUE);
+            dateTime_Index = Common.GetFieldIndex(Headers, Common.DATETIME);
         }
 
         public void ProcessRow(CsvReader csvReader, int row)
@@ -62,7 +62,8 @@ namespace Processors.Processors
 
         public void ProcessSummaryAgain(int row)
         {
-            // not necessary for this processor
+            if (Processor_Result.Result.Count == 0)
+                Processor_Result.Description = "No abnormal values are present in the file";
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Parser
 {
     public class Reader
     {
-        public void ProcessFile(string fileNameWithPath)
+        public ProcessorResult ProcessFile(string fileNameWithPath)
         {
             // find the right processor by the file name
             Common common = new Common();
@@ -47,6 +47,8 @@ namespace Parser
             }
 
             processor.PrintResult();
+
+            return processor.GetResult();
         }
     }
 }
